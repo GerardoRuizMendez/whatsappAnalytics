@@ -1,7 +1,9 @@
+import Main from "./modules/main/screens/Main";
+
 function App() {
   return (
     <div>
-      <p>Initial Settings</p>
+      <Main />
     </div>
   );
 }
