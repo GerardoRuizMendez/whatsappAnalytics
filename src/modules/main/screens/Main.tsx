@@ -1,32 +1,37 @@
-import { useState } from "react";
-import FileInput from "../components/FileReader";
+import { useRef, useState } from "react";
 import PiePercentMessages from "../components/charts/PiePercentMessages";
 import dataFrame from "../model/dataFrame";
 import AreaByMonth from "../components/charts/AreaByMonth";
 import LineByUserAndMonth from "../components/charts/LineByUserAndMonth";
 import ColumnByWeek from "../components/charts/ColumnByWeek";
+import Hero from "../components/Hero";
+import FileInput from "../components/FileInput";
 
 export default function Main() {
-  const [dataFrame, setDataFrame] = useState<dataFrame>();
+  const [dataFrameState, setDataFrame] = useState<dataFrame>();
+  const FileInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <main className="">
-      <FileInput setDataFrame={setDataFrame} />
+    <div>
+      <Hero />
+      <div className="flex flex-col items-center">
+        <FileInput FileInputRef={FileInputRef} setDataFrame={setDataFrame} />
 
-      {dataFrame != undefined && (
-        <div>
-          <div>
-            <p>Total de mensajes: {dataFrame.rows.length}</p>
-            <p>De los cuales:</p>
-          </div>
-          <div className="flex flex-col">
-            <PiePercentMessages data={dataFrame.messagesBySender()} />
-            <AreaByMonth data={dataFrame.messagesByMonth()} />
-            <LineByUserAndMonth data={dataFrame.senderCountByMonth()} />
-            <ColumnByWeek data={dataFrame.messagesCountByWeek()} />
-          </div>
-        </div>
-      )}
-    </main>
+        {dataFrameState != undefined && (
+          <main className="w-8/12">
+            <div>
+              <p>Total de mensajes: {dataFrameState.rows.length}</p>
+              <p>De los cuales:</p>
+            </div>
+            <div>
+              <PiePercentMessages data={dataFrameState.messagesBySender()} />
+              <AreaByMonth data={dataFrameState.messagesByMonth()} />
+              <LineByUserAndMonth data={dataFrameState.senderCountByMonth()} />
+              <ColumnByWeek data={dataFrameState.messagesCountByWeek()} />
+            </div>
+          </main>
+        )}
+      </div>
+    </div>
   );
 }
