@@ -14,24 +14,23 @@ export default function Main() {
   return (
     <div>
       <Hero />
-      <div className="flex flex-col items-center">
-        <FileInput FileInputRef={FileInputRef} setDataFrame={setDataFrame} />
 
-        {dataFrameState != undefined && (
-          <main className="w-8/12">
-            <div>
-              <p>Total de mensajes: {dataFrameState.rows.length}</p>
-              <p>De los cuales:</p>
-            </div>
-            <div>
-              <PiePercentMessages data={dataFrameState.messagesBySender()} />
-              <AreaByMonth data={dataFrameState.messagesByMonth()} />
-              <LineByUserAndMonth data={dataFrameState.senderCountByMonth()} />
-              <ColumnByWeek data={dataFrameState.messagesCountByWeek()} />
-            </div>
-          </main>
-        )}
-      </div>
+      <FileInput FileInputRef={FileInputRef} setDataFrame={setDataFrame} />
+
+      {dataFrameState != undefined && (
+        <main className="w-full">
+          <div className="w-full flex flex-col items-center">
+            {/* <div>
+                <p>Total de mensajes: {dataFrameState.rows.length}</p>
+                <p>De los cuales:</p>
+              </div> */}
+            <PiePercentMessages data={dataFrameState.messagesBySender()} />
+            <AreaByMonth data={dataFrameState.messagesByMonth()} />
+            <LineByUserAndMonth data={dataFrameState.senderCountByMonth()} />
+            <ColumnByWeek data={dataFrameState.messagesCountByWeek()} />
+          </div>
+        </main>
+      )}
     </div>
   );
 }

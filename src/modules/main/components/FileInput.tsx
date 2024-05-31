@@ -22,9 +22,9 @@ export default function FileInput({
   };
 
   return (
-    <div className="w-full relative flex flex-col items-center">
+    <div className="w-full relative flex">
       <div
-        className={`w-full text-[#ECECEC] bg-[#049382] h-[80vh] flex flex-col items-center justify-center ${
+        className={`w-full text-custom_white bg-secondary h-[80vh] flex flex-col items-center justify-center ${
           isDrag ? "" : ""
         }`}
         onDragOver={(e) => {
@@ -51,7 +51,7 @@ export default function FileInput({
         <p>Drag and drop file</p>
         <p>or</p>
         <button
-          className="text-[#ECECEC] bg-[#0F2F2B] hover:bg-[#0c2523] px-9 py-2 rounded-md mt-2"
+          className="text-custom_white bg-button hover:bg-darker_button px-9 py-2 rounded-md mt-2"
           onClick={() => {
             FileInputRef.current?.click();
           }}
@@ -74,7 +74,7 @@ export default function FileInput({
         </div>
       </div>
       <div
-        className={`w-full h-full absolute flex items-center justify-center text-2xl bg-gray-800 bg-opacity-90 text-[#ECECEC] ${
+        className={`w-full h-full absolute flex items-center justify-center text-2xl bg-gray-800 bg-opacity-90 text-custom_white ${
           isDrag ? "" : "hidden"
         }`}
         onDragOver={(e) => {
