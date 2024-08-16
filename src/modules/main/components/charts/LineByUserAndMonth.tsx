@@ -12,7 +12,7 @@ export default function LineByUserAndMonth({
   return (
     <div className="w-full py-16 bg-primary">
       <p className="m-auto text-center mb-5 text-2xl text-custom_white">
-        Mensajes por mes por cada persona:
+        Mensajes por mes de cada persona:
       </p>
       <Chart
         options={{

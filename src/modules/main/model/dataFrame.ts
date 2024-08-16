@@ -73,6 +73,21 @@ export default class dataFrame {
     };
   }
 
+  public multimediaBySender() {
+    const senderCounts: { [key: string]: number } = {};
+    let contador = 0
+    this.rows.forEach((data) => {
+      if (data.Message != "<Media omitted>") return
+      contador++
+      senderCounts[data.Sender] = (senderCounts[data.Sender] || 0) + 1;
+    });
+
+    return {
+      senders: Object.keys(senderCounts),
+      messages: Object.values(senderCounts),
+    };
+  }
+
   public messagesByMonth() {
     const senderCounts: { [key: string]: number } = {};
     const firstDayDate = new Date(this.rows[0].Date);
@@ -181,20 +196,19 @@ export default class dataFrame {
     });
   }
 
-  // public renameSenders(newSenders: string[], lastSenders: string[]): void {
-  //   if (newSenders.length !== lastSenders.length) {
-  //     throw new Error('Los arrays newSenders y lastSenders deben tener la misma longitud.');
-  //   }
+  public lenghtMessageBySender() {
+    const senderCounts: { [key: string]: number } = {};
+    const senderWords: { [key: string]: number } = {};
+    this.rows.forEach((data) => {
+      if (data.Message == "<Media omitted>") return
+      senderCounts[data.Sender] = (senderCounts[data.Sender] || 0) + 1;
+      senderWords[data.Sender] = (senderWords[data.Sender] || 0) + data.Message.replaceAll(" ", "").length
+    });
 
-  //   const senderMap = new Map<string, string>();
-  //   for (let i = 0; i < lastSenders.length; i++) {
-  //     senderMap.set(lastSenders[i], newSenders[i]);
-  //   }
+    for (let sender in senderWords) {
+      senderWords[sender] = senderWords[sender] / senderCounts[sender]
+    }
 
-  //   this.rows.forEach((data) => {
-  //     if (senderMap.has(data.Sender)) {
-  //       data.Sender = senderMap.get(data.Sender)!;
-  //     }
-  //   });
-  // }
+    return { text: Object.values(senderWords) }
+  }
 }
